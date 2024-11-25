@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<style name="Theme.Askera" parent="android:Theme.Material.Light.NoActionBar">
+    <item name="android:windowTranslucentStatus">false</item>
+    <item name="android:windowTranslucentNavigation">false</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>
+    <item name="android:navigationBarColor">@android:color/transparent</item>
+    <item name="android:windowBackground">@color/black</item>
+</style>
+
+<style name="Theme.App.Starting" parent="Theme.SplashScreen">
+    <item name="android:windowTranslucentStatus">false</item>
+    <item name="android:windowTranslucentNavigation">false</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>
+    <item name="android:navigationBarColor">@android:color/transparent</item>
+    <item name="windowSplashScreenBackground">@color/secondary</item>
+    <item name="windowSplashScreenAnimatedIcon">@android:color/transparent</item>
+    <item name="postSplashScreenTheme">@style/Theme.Askera</item>
+</style>
+
+</resources>
