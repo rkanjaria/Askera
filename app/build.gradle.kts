@@ -49,7 +49,6 @@ android {
                 value = "\"${properties.getProperty("API_KEY")}\""
             )
 
-
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -121,6 +120,12 @@ dependencies {
 
     //Splash Screen
     implementation(libs.androidx.core.splashscreen)
+
+    // Generative Ai
+    implementation(libs.generativeai)
+
+    // Markdown
+    implementation(libs.compose.markdown)
 
     testImplementation(libs.junit)
 

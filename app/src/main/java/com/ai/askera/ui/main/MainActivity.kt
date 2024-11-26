@@ -30,10 +30,11 @@ import kotlinx.coroutines.launch
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
         installSplashScreen()
         enableEdgeToEdge()
+
+        super.onCreate(savedInstanceState)
 
         setContent {
             AskeraTheme {

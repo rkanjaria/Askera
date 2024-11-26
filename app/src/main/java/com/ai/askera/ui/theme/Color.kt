@@ -2,6 +2,9 @@ package com.ai.askera.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+val cardColorPurple = Color(0xFFF4E0F1)
+val cardColorPink = Color(0xFFCFC8EF)
+
 private object DarkTheme {
     val background = Color(0xFF1C202A)
     val backgroundDark = Color(0xFF161921)

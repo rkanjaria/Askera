@@ -123,12 +123,14 @@ data class Body(
         fontSize = 18.sp,
         lineHeight = 30.sp
     ),
+
     val medium: TextStyle = TextStyle(
         fontFamily = euclidCircular,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 26.sp
     ),
+
     val small: TextStyle = TextStyle(
         fontFamily = euclidCircular,
         fontWeight = FontWeight.Normal,

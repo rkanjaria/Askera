@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import com.ai.askera.R
 import com.ai.askera.chat.domain.entity.MessageEntity
 import com.ai.askera.chat.presentation.models.MessageUi
 import com.ai.askera.chat.presentation.models.toMessageUi
@@ -19,6 +20,7 @@ import com.ai.askera.core.domain.util.MessageFrom
 import com.ai.askera.ui.theme.AskeraTheme
 import com.ai.askera.ui.theme.body
 import com.ai.askera.ui.theme.size
+import dev.jeziellago.compose.markdowntext.MarkdownText
 
 
 @Composable
@@ -51,6 +53,7 @@ fun MessageCellAi(
             .background(color)
             .padding(all = MaterialTheme.size.extraLarge)
     ) {
+
         Text(
             modifier = Modifier.align(Alignment.CenterStart),
             text = message.message ?: "",

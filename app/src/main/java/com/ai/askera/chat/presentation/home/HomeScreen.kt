@@ -1,4 +1,4 @@
-package com.ai.askera.chat.presentation.chat_screen
+package com.ai.askera.chat.presentation.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,35 +14,44 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.ai.askera.chat.presentation.chat_screen.ChatActions
+import com.ai.askera.chat.presentation.chat_screen.ChatScreen
 import com.ai.askera.chat.presentation.chat_screen.components.MessageCellAi
-import com.ai.askera.chat.presentation.chat_screen.components.MessageCellUser
 import com.ai.askera.chat.presentation.components.ChatBar
+import com.ai.askera.chat.presentation.home.components.PromptSection
+import com.ai.askera.chat.presentation.home.components.TitleSection
 import com.ai.askera.chat.presentation.models.toMessageUi
-import com.ai.askera.core.domain.util.MessageFrom
 import com.ai.askera.core.domain.util.dummyConversation
+import com.ai.askera.core.domain.util.prompts
+import com.ai.askera.core.navigation.ChatScreen
 import com.ai.askera.ui.theme.AskeraTheme
+import com.ai.askera.ui.theme.body
 import com.ai.askera.ui.theme.size
-import kotlinx.coroutines.flow.emptyFlow
+import com.ai.askera.ui.theme.subtitle
+import com.ai.askera.ui.theme.title
+
 
 @Composable
-fun ChatScreen(
+fun HomeScreen(
     navController: NavController,
-    state: ChatUiState,
-    onAction: (ChatActions) -> Unit
+    state: HomeUiState,
+    onAction: (HomeActions) -> Unit
 ) {
 
-    val messages = state.messages
+    val prompts = state.prompts
 
     Box(
         modifier = Modifier
@@ -60,8 +69,6 @@ fun ChatScreen(
     ) {
         LazyColumn(
             contentPadding = PaddingValues(
-                start = MaterialTheme.size.extraLarge,
-                end = MaterialTheme.size.extraLarge,
                 top = MaterialTheme.size.extraLarge,
                 bottom = MaterialTheme.size.dp100.plus(
                     WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
@@ -70,15 +77,27 @@ fun ChatScreen(
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.size.extraLarge)
         ) {
 
-            items(messages) { message ->
+            item {
+                MessageCellAi(
+                    modifier = Modifier.padding(start = MaterialTheme.size.extraLarge),
+                    message = dummyConversation[1].toMessageUi()
+                )
+            }
 
-                val isMessageFromUser = message.messageFrom == MessageFrom.USER
+            item {
+                TitleSection(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(all = MaterialTheme.size.extraLarge),
+                    title = "Select the topic or write your question below"
+                )
+            }
 
-                if (isMessageFromUser) {
-                    MessageCellUser(message = message)
-                } else {
-                    MessageCellAi(message = message)
-                }
+            item {
+                PromptSection(
+                    modifier = Modifier.fillMaxWidth(),
+                    promptList = prompts
+                )
             }
         }
 
@@ -107,11 +126,13 @@ fun ChatScreen(
                 )
                 .align(Alignment.BottomCenter),
             onSendButtonClicked = { userMessage ->
-                onAction.invoke(
-                    ChatActions.SendMessage(
+                /*onAction.invoke(
+                    HomeActions.SendMessage(
                         message = userMessage
                     )
-                )
+                )*/
+
+                navController.navigate(ChatScreen)
             }
         )
     }
@@ -119,14 +140,12 @@ fun ChatScreen(
 
 @PreviewLightDark
 @Composable
-private fun ChatScreenPreview() {
+private fun HomeScreenPreview() {
     AskeraTheme {
 
-        ChatScreen(
+        HomeScreen(
             navController = rememberNavController(),
-            state = ChatUiState(
-                messages = dummyConversation.map { it.toMessageUi() }
-            ),
+            state = HomeUiState(prompts = prompts),
             onAction = {}
         )
     }
