@@ -58,7 +58,7 @@ fun ChatBar(
                 if (isDarkMode.not()) {
                     Modifier.border(
                         width = MaterialTheme.size.dp2,
-                        color = MaterialTheme.colorScheme.surfaceDim,
+                        color = MaterialTheme.colorScheme.surfaceBright,
                         shape = chatBoxShape
                     )
                 } else {

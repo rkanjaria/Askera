@@ -1,6 +1,8 @@
 package com.ai.askera.chat.presentation.chat_screen.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -36,19 +38,13 @@ fun MessageCellAi(
         bottomEnd = MaterialTheme.size.megaLarge,
     )
 
-    val isMessageFromUser = message.messageFrom == MessageFrom.USER
-
     val color = MaterialTheme.colorScheme.surfaceDim
     val textColor = MaterialTheme.colorScheme.onSurface
 
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .then(
-                if (isMessageFromUser) {
-                    Modifier.padding(end = MaterialTheme.size.megaLarge)
-                } else Modifier
-            )
+            .padding(end = MaterialTheme.size.megaLarge)
             .clip(messageShape)
             .background(color)
             .padding(all = MaterialTheme.size.extraLarge)

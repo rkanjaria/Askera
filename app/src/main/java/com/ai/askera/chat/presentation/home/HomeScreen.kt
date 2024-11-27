@@ -31,6 +31,7 @@ import com.ai.askera.chat.presentation.chat_screen.ChatActions
 import com.ai.askera.chat.presentation.chat_screen.ChatScreen
 import com.ai.askera.chat.presentation.chat_screen.components.MessageCellAi
 import com.ai.askera.chat.presentation.components.ChatBar
+import com.ai.askera.chat.presentation.home.components.GreetingCard
 import com.ai.askera.chat.presentation.home.components.PromptSection
 import com.ai.askera.chat.presentation.home.components.TitleSection
 import com.ai.askera.chat.presentation.models.toMessageUi
@@ -78,9 +79,10 @@ fun HomeScreen(
         ) {
 
             item {
-                MessageCellAi(
-                    modifier = Modifier.padding(start = MaterialTheme.size.extraLarge),
-                    message = dummyConversation[1].toMessageUi()
+                GreetingCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(all = MaterialTheme.size.extraLarge),
                 )
             }
 
@@ -89,7 +91,7 @@ fun HomeScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(all = MaterialTheme.size.extraLarge),
-                    title = "Select the topic or write your question below"
+                    title = "Select the topic or write your own questions below"
                 )
             }
 

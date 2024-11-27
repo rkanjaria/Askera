@@ -56,7 +56,7 @@ data class Title(
         fontFamily = euclidCircular,
         fontWeight = FontWeight.SemiBold,
         fontSize = 14.sp,
-        lineHeight = 22.sp
+        lineHeight = 20.sp
     ),
 
     val extraSmall: TextStyle = TextStyle(
@@ -98,7 +98,7 @@ data class Subtitle(
         fontFamily = euclidCircular,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
-        lineHeight = 22.sp
+        lineHeight = 20.sp
     ),
 
     val extraSmall: TextStyle = TextStyle(
@@ -135,7 +135,7 @@ data class Body(
         fontFamily = euclidCircular,
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
-        lineHeight = 24.sp
+        lineHeight = 22.sp
     ),
 
     val extraSmall: TextStyle = TextStyle(

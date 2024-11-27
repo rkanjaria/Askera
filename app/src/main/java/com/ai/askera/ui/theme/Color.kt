@@ -2,10 +2,10 @@ package com.ai.askera.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val cardColorPurple = Color(0xFFF4E0F1)
-val cardColorPink = Color(0xFFCFC8EF)
+val translucentBlack = Color(0x4D000000)
 
-private object DarkTheme {
+// Old
+/*object DarkTheme {
     val background = Color(0xFF1C202A)
     val backgroundDark = Color(0xFF161921)
     val grey = Color(0xFF272C39)
@@ -14,15 +14,38 @@ private object DarkTheme {
     val subtitle = Color(0xFF82899C)
     val primary = Color(0xFF7269E3)
     val primaryDark = Color(0xFF5148C9)
+
+    val cardColorPurple = Color(0xFFC9C6FF)
+    val cardColorPink = Color(0xFFFFD0F8)
+    val cardColorYellow = Color(0xFFFFDAAB) //ffd18d
+    val cardColorGreen = Color(0xFFE5FFA5)
+    val cardColorDarkGreen = Color(0xFFBEFFE2)
+}*/
+
+object DarkTheme {
+    val background = Color(0xFF0A0A0A)
+    val backgroundDark = Color(0xFF0A0A0A)
+    val grey = Color(0xFF1B1B1B)
+    val lightGrey = Color(0xFF252626)
+    val title = Color(0xFFFFFFFF)
+    val subtitle = Color(0xFF9A9A9A)
+    val primary = Color(0xFF7269E3)
+    val primaryDark = Color(0xFF5148C9)
+
+    val cardColorPurple = Color(0xFFC9C6FF)
+    val cardColorPink = Color(0xFFFFD0F8)
+    val cardColorYellow = Color(0xFFFFDAAB) //ffd18d
+    val cardColorGreen = Color(0xFFE5FFA5)
+    val cardColorDarkGreen = Color(0xFFBEFFE2)
 }
 
-private object LightTheme {
+object LightTheme {
     val background = Color(0xFFFFFFFF)
     val backgroundDark = Color(0xFFFFFFFF)
-    val grey = Color(0xFFEfEEf5)
-    val lightGrey = Color(0xFFEEEEEE)
+    val grey = Color(0xFFF6F6F9)
+    val lightGrey = Color(0xFFEFEFEF)
     val title = Color(0xFF12131A)
-    val subtitle = Color(0xFF727277)
+    val subtitle = Color(0xFF9A9A9A)
     val primary = Color(0xFF7269E3)
     val primaryDark = Color(0xFF5148C9)
 }
