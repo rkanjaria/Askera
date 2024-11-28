@@ -1,4 +1,4 @@
-package com.ai.askera.chat.domain.entity
+package com.ai.askera.chat.data.local.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -98,7 +98,12 @@ fun HomeScreen(
             item {
                 PromptSection(
                     modifier = Modifier.fillMaxWidth(),
-                    promptList = prompts
+                    promptList = prompts,
+                    onPromptClicked = { promptUi ->
+                        navController.navigate(
+                            ChatScreen(prompt = promptUi.prompt)
+                        )
+                    }
                 )
             }
         }
@@ -128,13 +133,7 @@ fun HomeScreen(
                 )
                 .align(Alignment.BottomCenter),
             onSendButtonClicked = { userMessage ->
-                /*onAction.invoke(
-                    HomeActions.SendMessage(
-                        message = userMessage
-                    )
-                )*/
-
-                navController.navigate(ChatScreen)
+                navController.navigate(ChatScreen(prompt = userMessage))
             }
         )
     }

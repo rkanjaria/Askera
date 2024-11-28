@@ -15,4 +15,6 @@ data class WalkthroughScreen(
 data object HomeScreen
 
 @Serializable
-data object ChatScreen
+data class ChatScreen(
+    val prompt: String?
+)

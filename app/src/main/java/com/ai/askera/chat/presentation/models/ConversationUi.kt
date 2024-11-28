@@ -5,6 +5,7 @@ import java.util.UUID
 data class ConversationUi(
     val id: String = UUID.randomUUID().toString(),
     val createdAt: DisplayableDate?,
-    val updatedAt: DisplayableDate?
+    val updatedAt: DisplayableDate?,
+    val firstMessage: String
 )
 

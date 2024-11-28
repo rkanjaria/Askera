@@ -1,11 +1,15 @@
 package com.ai.askera.chat.presentation.chat_screen
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import com.ai.askera.BuildConfig
 import com.ai.askera.chat.presentation.models.MessageUi
 import com.ai.askera.core.domain.util.MessageFrom
 import com.ai.askera.core.domain.util.SystemInstruction
+import com.ai.askera.core.domain.util.errorResponses
+import com.ai.askera.core.navigation.ChatScreen
 import com.google.ai.client.generativeai.GenerativeModel
 import com.google.ai.client.generativeai.type.BlockThreshold
 import com.google.ai.client.generativeai.type.HarmCategory
@@ -13,19 +17,25 @@ import com.google.ai.client.generativeai.type.SafetySetting
 import com.google.ai.client.generativeai.type.content
 import com.google.ai.client.generativeai.type.generationConfig
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.WhileSubscribed
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.seconds
 
-class ChatViewModel() : ViewModel() {
+class ChatViewModel(
+    savedStateHandle: SavedStateHandle,
 
-    private val _state = MutableStateFlow(ChatUiState())
-    val state = _state.asStateFlow()
+) : ViewModel() {
+
+    private val prompt = savedStateHandle.toRoute<ChatScreen>()
 
     private val config = generationConfig { temperature = 0.7f }
 
     private val model = GenerativeModel(
-        modelName = "gemini-1.5-pro-latest",
+        modelName = "gemini-1.5-flash",
         apiKey = BuildConfig.API_KEY,
         generationConfig = config,
         safetySettings = listOf(
@@ -38,6 +48,21 @@ class ChatViewModel() : ViewModel() {
     )
 
     val chat = model.startChat(history = emptyList())
+
+
+    private val _state = MutableStateFlow(ChatUiState())
+    val state = _state
+        .onStart {
+            val message = prompt.prompt
+            if (!message.isNullOrEmpty()) {
+                sendMessage(message)
+            }
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5.seconds),
+            initialValue = ChatUiState()
+        )
 
     fun onAction(action: ChatActions) {
         when (action) {
@@ -59,17 +84,31 @@ class ChatViewModel() : ViewModel() {
                     from = MessageFrom.USER
                 )
 
-                val response = chat.sendMessage(message)
+                try {
 
-                response.let { chatResponse ->
+                    val response = chat.sendMessage(message)
 
-                    val messageFromModel = chatResponse.text?.trim()
-                    if (!messageFromModel.isNullOrEmpty()) {
-                        addMessageToList(
-                            message = messageFromModel,
-                            from = MessageFrom.AI
-                        )
+                    response.let { chatResponse ->
+
+                        val messageFromModel = chatResponse.text?.trim()
+
+                        if (!messageFromModel.isNullOrEmpty()) {
+
+                            addMessageToList(
+                                message = messageFromModel,
+                                from = MessageFrom.AI
+                            )
+                        }
                     }
+
+                } catch (e: Exception) {
+
+                    e.printStackTrace()
+
+                    addMessageToList(
+                        message = errorResponses.random(),
+                        from = MessageFrom.AI
+                    )
                 }
             }
         }
@@ -84,5 +123,11 @@ class ChatViewModel() : ViewModel() {
 
         val updatedMessageList = _state.value.messages.plus(chatMessage)
         _state.update { it.copy(messages = updatedMessageList) }
+    }
+
+    private fun storeMessage(messageUi: MessageUi){
+        viewModelScope.launch {
+
+        }
     }
 }

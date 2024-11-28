@@ -2,8 +2,8 @@ package com.ai.askera.core.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.ai.askera.chat.domain.entity.ConversationEntity
-import com.ai.askera.chat.domain.entity.MessageEntity
+import com.ai.askera.chat.data.local.entity.ConversationEntity
+import com.ai.askera.chat.data.local.entity.MessageEntity
 import com.ai.askera.core.data.local.dao.ConversationDao
 import com.ai.askera.core.data.local.dao.MessagesDao
 

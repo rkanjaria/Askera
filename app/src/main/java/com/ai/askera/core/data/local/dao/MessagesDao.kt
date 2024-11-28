@@ -4,7 +4,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.ai.askera.chat.domain.entity.MessageEntity
+import androidx.room.Transaction
+import com.ai.askera.chat.data.local.entity.MessageEntity
 import kotlinx.coroutines.flow.Flow
 
 
@@ -12,7 +13,10 @@ import kotlinx.coroutines.flow.Flow
 interface MessagesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMessage(facts: List<MessageEntity>)
+    suspend fun insertMessage(messages: List<MessageEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertMessage(message: MessageEntity)
 
     @Query("DELETE FROM messages")
     suspend fun nukeMessages()

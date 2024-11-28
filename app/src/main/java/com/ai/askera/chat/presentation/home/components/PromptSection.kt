@@ -1,6 +1,5 @@
 package com.ai.askera.chat.presentation.home.components
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,14 +11,14 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.ai.askera.chat.presentation.models.PromptUi
 import com.ai.askera.ui.theme.AskeraTheme
 import com.ai.askera.ui.theme.DarkTheme
-import com.ai.askera.ui.theme.LightTheme
 import com.ai.askera.ui.theme.size
 
 
 @Composable
 fun PromptSection(
     modifier: Modifier = Modifier,
-    promptList: List<PromptUi>
+    promptList: List<PromptUi>,
+    onPromptClicked: (PromptUi) -> Unit = {}
 ) {
 
     val promptColors = listOf(
@@ -29,22 +28,6 @@ fun PromptSection(
         DarkTheme.cardColorPink,
         DarkTheme.cardColorDarkGreen,
     )
-
-    /*val promptColors = if (isSystemInDarkTheme()) {
-        listOf(
-            DarkTheme.cardColorPink,
-            DarkTheme.cardColorPurple,
-            DarkTheme.cardColorYellow,
-            DarkTheme.cardColorGreen,
-        )
-    } else {
-        listOf(
-            LightTheme.cardColorPink,
-            LightTheme.cardColorPurple,
-            LightTheme.cardColorYellow,
-            LightTheme.cardColorGreen,
-        )
-    }*/
 
     LazyRow(
         modifier = modifier,
@@ -60,7 +43,8 @@ fun PromptSection(
             val prompt = promptList[index]
             PromptCard(
                 prompt = prompt,
-                color = color
+                color = color,
+                onPromptClicked = onPromptClicked
             )
         }
     }

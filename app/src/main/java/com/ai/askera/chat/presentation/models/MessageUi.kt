@@ -1,6 +1,6 @@
 package com.ai.askera.chat.presentation.models
 
-import com.ai.askera.chat.domain.entity.MessageEntity
+import com.ai.askera.chat.data.local.entity.MessageEntity
 import com.ai.askera.core.presentation.util.toSimpleDate
 import java.util.UUID
 

@@ -15,14 +15,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.ai.askera.R
-import com.ai.askera.chat.domain.entity.MessageEntity
+import com.ai.askera.chat.data.local.entity.MessageEntity
 import com.ai.askera.chat.presentation.models.MessageUi
 import com.ai.askera.chat.presentation.models.toMessageUi
 import com.ai.askera.core.domain.util.MessageFrom
+import com.ai.askera.core.presentation.components.animated_text.FadeAnimatedText
+import com.ai.askera.core.presentation.components.animated_text.rememberAnimatedTextState
 import com.ai.askera.ui.theme.AskeraTheme
 import com.ai.askera.ui.theme.body
 import com.ai.askera.ui.theme.size
 import dev.jeziellago.compose.markdowntext.MarkdownText
+import kotlin.time.Duration.Companion.milliseconds
 
 
 @Composable
@@ -30,6 +33,8 @@ fun MessageCellAi(
     modifier: Modifier = Modifier,
     message: MessageUi
 ) {
+
+    //val animatedState = rememberAnimatedTextState()
 
     val messageShape = RoundedCornerShape(
         topStart = MaterialTheme.size.minor,
@@ -49,6 +54,16 @@ fun MessageCellAi(
             .background(color)
             .padding(all = MaterialTheme.size.extraLarge)
     ) {
+
+        /*FadeAnimatedText(
+            modifier = Modifier.align(Alignment.CenterStart),
+            state = animatedState,
+            text = message.message ?: "",
+            style = MaterialTheme.body.medium.copy(
+                color = textColor,
+            ),
+            animationDuration = 100.milliseconds
+        )*/
 
         Text(
             modifier = Modifier.align(Alignment.CenterStart),
