@@ -16,5 +16,6 @@ data object HomeScreen
 
 @Serializable
 data class ChatScreen(
-    val prompt: String?
+    val prompt: String?,
+    val conversationId: String? = null
 )

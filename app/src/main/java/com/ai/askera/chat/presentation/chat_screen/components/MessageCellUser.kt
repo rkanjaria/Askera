@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.ai.askera.chat.data.local.entity.MessageEntity
+import com.ai.askera.chat.domain.models.Message
 import com.ai.askera.chat.presentation.models.MessageUi
 import com.ai.askera.chat.presentation.models.toMessageUi
 import com.ai.askera.core.domain.util.MessageFrom
@@ -72,7 +73,7 @@ private fun MessageCellUserPreview() {
     }
 }
 
-internal val messageUser = MessageEntity(
+internal val messageUser = Message(
     id = "",
     message = "Show me latest Notion inbox with some long due task that weren't taken up in last sprint",
     messageFrom = MessageFrom.USER,

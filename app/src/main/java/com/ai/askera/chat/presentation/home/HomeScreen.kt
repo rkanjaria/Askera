@@ -101,7 +101,9 @@ fun HomeScreen(
                     promptList = prompts,
                     onPromptClicked = { promptUi ->
                         navController.navigate(
-                            ChatScreen(prompt = promptUi.prompt)
+                            ChatScreen(
+                                prompt = promptUi.prompt,
+                            )
                         )
                     }
                 )
@@ -133,7 +135,11 @@ fun HomeScreen(
                 )
                 .align(Alignment.BottomCenter),
             onSendButtonClicked = { userMessage ->
-                navController.navigate(ChatScreen(prompt = userMessage))
+                navController.navigate(
+                    ChatScreen(
+                        prompt = userMessage
+                    )
+                )
             }
         )
     }

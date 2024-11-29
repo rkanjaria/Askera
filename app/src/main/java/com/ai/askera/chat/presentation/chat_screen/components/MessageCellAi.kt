@@ -1,8 +1,6 @@
 package com.ai.askera.chat.presentation.chat_screen.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,18 +12,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import com.ai.askera.R
-import com.ai.askera.chat.data.local.entity.MessageEntity
+import com.ai.askera.chat.domain.models.Message
 import com.ai.askera.chat.presentation.models.MessageUi
 import com.ai.askera.chat.presentation.models.toMessageUi
 import com.ai.askera.core.domain.util.MessageFrom
-import com.ai.askera.core.presentation.components.animated_text.FadeAnimatedText
-import com.ai.askera.core.presentation.components.animated_text.rememberAnimatedTextState
 import com.ai.askera.ui.theme.AskeraTheme
 import com.ai.askera.ui.theme.body
 import com.ai.askera.ui.theme.size
-import dev.jeziellago.compose.markdowntext.MarkdownText
-import kotlin.time.Duration.Companion.milliseconds
 
 
 @Composable
@@ -83,7 +76,7 @@ private fun MessageCellAiPreview() {
     }
 }
 
-internal val messageAi = MessageEntity(
+internal val messageAi = Message(
     id = "",
     message = "Hello! I’m Askera, your AI companion. What can I help you discover today?",
     messageFrom = MessageFrom.AI,

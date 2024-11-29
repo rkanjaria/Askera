@@ -1,6 +1,6 @@
 package com.ai.askera.chat.presentation.models
 
-import com.ai.askera.chat.data.local.entity.MessageEntity
+import com.ai.askera.chat.domain.models.Message
 import com.ai.askera.core.presentation.util.toSimpleDate
 import java.util.UUID
 
@@ -19,7 +19,7 @@ data class DisplayableDate(
     val formatted: String
 )
 
-fun MessageEntity.toMessageUi(): MessageUi {
+fun Message.toMessageUi(): MessageUi {
     return MessageUi(
         id = id,
         conversationId = conversationId,
