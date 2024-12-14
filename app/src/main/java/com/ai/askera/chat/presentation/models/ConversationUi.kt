@@ -1,5 +1,8 @@
 package com.ai.askera.chat.presentation.models
 
+import com.ai.askera.chat.domain.models.Conversation
+import com.ai.askera.chat.domain.models.Message
+import com.ai.askera.core.presentation.util.toSimpleDate
 import java.util.UUID
 
 data class ConversationUi(
@@ -8,4 +11,15 @@ data class ConversationUi(
     val updatedAt: DisplayableDate?,
     val firstMessage: String
 )
+
+
+fun Conversation.toConversationUi(): ConversationUi {
+    return ConversationUi(
+        id = id,
+        createdAt = createdAt?.toDisplayableDate(),
+        updatedAt = updatedAt?.toDisplayableDate(),
+        firstMessage = ""
+    )
+}
+
 

@@ -79,7 +79,7 @@ private fun MessageCellAiPreview() {
 internal val messageAi = Message(
     id = "",
     message = "Hello! I’m Askera, your AI companion. What can I help you discover today?",
-    messageFrom = MessageFrom.AI,
+    messageFrom = MessageFrom.MODEL,
     createdAt = System.currentTimeMillis(),
     updatedAt = System.currentTimeMillis()
 ).toMessageUi()

@@ -105,7 +105,7 @@ class ChatViewModel(
 
                             addMessageToList(
                                 message = messageFromModel,
-                                from = MessageFrom.AI
+                                from = MessageFrom.MODEL
                             )
                         }
                     }
@@ -116,7 +116,7 @@ class ChatViewModel(
 
                     addMessageToList(
                         message = errorResponses.random(),
-                        from = MessageFrom.AI
+                        from = MessageFrom.MODEL
                     )
                 }
             }
@@ -143,28 +143,30 @@ class ChatViewModel(
     }
 
     private fun getMessagesFromConversation() {
-        viewModelScope.launch {
 
-            if (!conversationId.isNullOrEmpty()) {
+        if (!conversationId.isNullOrEmpty()) {
+
+            viewModelScope.launch {
                 chatDataSource.getAllMessagesForConversation(conversationId)
                     .collect { messages ->
                         _state.update {
                             it.copy(
-                                messages = messages.map { it.toMessageUi() }
+                                messages = messages.map { messageModel -> messageModel.toMessageUi() }
                             )
                         }
                     }
             }
-
-            chat = model.startChat(getChatHistory())
         }
+
+        chat = model.startChat(getChatHistory())
     }
 
     private fun getChatHistory(): List<Content> {
+
         val messages = _state.value.messages.filter { it.message.isNullOrEmpty().not() }
+
         val content = messages.map { message ->
-            val role = if (message.messageFrom == MessageFrom.USER) "user" else "model"
-            content(role = role) { text(message.message.orEmpty()) }
+            content(role = message.messageFrom) { text(message.message.orEmpty()) }
         }
 
         println(content)

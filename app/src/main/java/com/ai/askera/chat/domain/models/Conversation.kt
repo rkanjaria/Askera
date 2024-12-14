@@ -6,8 +6,8 @@ import java.util.UUID
 
 data class Conversation(
     val id: String = UUID.randomUUID().toString(),
-    val createdAt: String? = System.currentTimeMillis().toString(),
-    val updatedAt: String? = System.currentTimeMillis().toString()
+    val createdAt: Long? = System.currentTimeMillis(),
+    val updatedAt: Long? = System.currentTimeMillis()
 )
 
 

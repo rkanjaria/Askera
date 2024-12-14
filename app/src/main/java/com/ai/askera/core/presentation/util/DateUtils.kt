@@ -1,5 +1,6 @@
 package com.ai.askera.core.presentation.util
 
+import com.ai.askera.chat.presentation.models.DisplayableDate
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -107,4 +108,11 @@ fun String.getTimeAgo(): String {
         diff < 2 * year -> "A year ago"
         else -> "${diff / year} years ago"
     }
+}
+
+fun Long.toDisplayableDate(): DisplayableDate {
+    return DisplayableDate(
+        timeInMillis = this,
+        formatted = this.toSimpleDate()
+    )
 }

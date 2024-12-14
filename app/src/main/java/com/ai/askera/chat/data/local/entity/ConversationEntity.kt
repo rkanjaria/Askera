@@ -10,7 +10,7 @@ data class ConversationEntity(
     @PrimaryKey
     val id: String = UUID.randomUUID().toString(),
     @ColumnInfo(name = "created_at")
-    val createdAt: String? = System.currentTimeMillis().toString(),
+    val createdAt: Long? = System.currentTimeMillis(),
     @ColumnInfo(name = "updated_at")
-    val updatedAt: String? = System.currentTimeMillis().toString()
+    val updatedAt: Long? = System.currentTimeMillis()
 )

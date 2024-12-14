@@ -35,7 +35,7 @@ fun GreetingCard(
             text = "Hey there! I'm",
             style = MaterialTheme.title.extraLarge.copy(
                 color = greetingTextColor,
-                fontSize = 50.sp,
+                fontSize = 40.sp,
                 lineHeight = 0.sp
             ),
         )
@@ -50,7 +50,7 @@ fun GreetingCard(
                         DarkTheme.cardColorPink,
                     )
                 ),
-                fontSize = 50.sp,
+                fontSize = 40.sp,
                 lineHeight = 0.sp
             )
         )

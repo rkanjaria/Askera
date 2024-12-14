@@ -14,11 +14,6 @@ data class MessageUi(
     val updatedAt: DisplayableDate? = null
 )
 
-data class DisplayableDate(
-    val timeInMillis: Long,
-    val formatted: String
-)
-
 fun Message.toMessageUi(): MessageUi {
     return MessageUi(
         id = id,
