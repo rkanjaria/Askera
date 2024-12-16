@@ -57,7 +57,6 @@ import com.ai.askera.ui.theme.title
 fun ChatScreen(
     navController: NavController,
     state: ChatUiState,
-    //uiEvents: Flow<ChatUiEvents>,
     onAction: (ChatActions) -> Unit
 ) {
 
@@ -215,7 +214,6 @@ private fun ChatScreenPreview() {
             state = ChatUiState(
                 messages = dummyConversation.map { it.toMessageUi() }
             ),
-            //uiEvents = flowOf(),
             onAction = {}
         )
     }

@@ -40,13 +40,11 @@ fun HomeNavigationGraph(
         slideScreenAnimation<ChatScreen> {
 
             val viewModel: ChatViewModel = koinViewModel()
-            //val uiEvents = viewModel.eventFlow
             val state by viewModel.state.collectAsStateWithLifecycle()
 
             ChatScreen(
                 navController = navController,
                 state = state,
-                //uiEvents = uiEvents,
                 onAction = viewModel::onAction
             )
         }
