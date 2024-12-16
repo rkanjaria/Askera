@@ -1,4 +1,4 @@
-package com.ai.askera.chat.presentation.home.components
+package com.ai.askera.chat.presentation.home_screen.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -17,9 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -33,7 +31,6 @@ import com.ai.askera.ui.theme.LightTheme
 import com.ai.askera.ui.theme.body
 import com.ai.askera.ui.theme.size
 import com.ai.askera.ui.theme.title
-import com.ai.askera.ui.theme.translucentBlack
 
 
 @Composable

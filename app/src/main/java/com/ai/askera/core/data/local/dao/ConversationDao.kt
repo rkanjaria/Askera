@@ -16,9 +16,9 @@ interface ConversationDao {
     @Query("DELETE FROM conversations")
     suspend fun nukeConversations()
 
-    @Query("SELECT * FROM conversations")
+    @Query("SELECT * FROM conversations ORDER BY created_at DESC")
     fun getConversations(): Flow<List<ConversationEntity>>
 
     @Query("SELECT COUNT() FROM conversations WHERE id = :id")
-    fun getConversationCount(id: String): Int
+    suspend fun getConversationCount(id: String): Int
 }

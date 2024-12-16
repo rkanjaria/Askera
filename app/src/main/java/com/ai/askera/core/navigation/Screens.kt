@@ -16,6 +16,9 @@ data object HomeScreen
 
 @Serializable
 data class ChatScreen(
-    val prompt: String?,
+    val prompt: String? = null,
     val conversationId: String? = null
 )
+
+@Serializable
+data object ChatHistoryScreen

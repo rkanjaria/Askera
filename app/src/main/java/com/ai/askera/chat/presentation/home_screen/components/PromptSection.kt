@@ -1,4 +1,4 @@
-package com.ai.askera.chat.presentation.home.components
+package com.ai.askera.chat.presentation.home_screen.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues

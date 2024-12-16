@@ -42,21 +42,10 @@ fun MessageCellAi(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .padding(end = MaterialTheme.size.megaLarge)
             .clip(messageShape)
             .background(color)
             .padding(all = MaterialTheme.size.extraLarge)
     ) {
-
-        /*FadeAnimatedText(
-            modifier = Modifier.align(Alignment.CenterStart),
-            state = animatedState,
-            text = message.message ?: "",
-            style = MaterialTheme.body.medium.copy(
-                color = textColor,
-            ),
-            animationDuration = 100.milliseconds
-        )*/
 
         Text(
             modifier = Modifier.align(Alignment.CenterStart),

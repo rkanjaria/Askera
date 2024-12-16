@@ -10,7 +10,6 @@ import com.ai.askera.chat.domain.models.toMessageEntity
 import com.ai.askera.core.data.local.AskeraDatabase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import java.util.UUID
 
 class ChatDataSourceImpl(
     private val db: AskeraDatabase
@@ -18,22 +17,15 @@ class ChatDataSourceImpl(
 
     override suspend fun storeMessage(message: Message) {
 
-        val conversationDao = db.conversationDao
-        val messageDao = db.messagesDao
-
-        val conversationId = message.conversationId
-
-        if (!conversationId.isNullOrEmpty() && conversationDao.getConversationCount(conversationId) > 0) {
+        if (message.id.isNotEmpty() && message.conversationId.isNullOrEmpty().not()) {
+            val messageDao = db.messagesDao
             messageDao.insertMessage(message = message.toMessageEntity())
-        } else {
+        }
+    }
 
-            val newConversation = Conversation(id = UUID.randomUUID().toString())
-            conversationDao.insertConversation(newConversation.toConversationEntity())
-
-            val updatedMessage = message.copy(
-                conversationId = newConversation.id
-            )
-            messageDao.insertMessage(updatedMessage.toMessageEntity())
+    override suspend fun storeConversation(conversation: Conversation) {
+        if (conversation.id.isNotEmpty()) {
+            db.conversationDao.insertConversation(conversation.toConversationEntity())
         }
     }
 
@@ -47,5 +39,9 @@ class ChatDataSourceImpl(
         return db.messagesDao.getMessagesForConversation(conversationId).map {
             it.map { entity -> entity.toMessage() }
         }
+    }
+
+    override suspend fun getConversationCount(conversationId: String): Int {
+        return db.conversationDao.getConversationCount(conversationId)
     }
 }

@@ -19,6 +19,7 @@ fun MessageEntity.toMessage(): Message {
 fun ConversationEntity.toConversation(): Conversation {
     return Conversation(
         id = id,
+        title = title,
         createdAt = createdAt,
         updatedAt = updatedAt
     )

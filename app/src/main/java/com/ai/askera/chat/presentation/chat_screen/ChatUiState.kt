@@ -5,4 +5,5 @@ import com.ai.askera.chat.presentation.models.MessageUi
 data class ChatUiState(
     val isLoading: Boolean = false,
     val messages: List<MessageUi> = emptyList(),
+    val smoothScrollToBottom: Boolean = false,
 )

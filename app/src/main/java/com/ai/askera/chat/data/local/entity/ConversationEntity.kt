@@ -9,6 +9,7 @@ import java.util.UUID
 data class ConversationEntity(
     @PrimaryKey
     val id: String = UUID.randomUUID().toString(),
+    val title: String? = null,
     @ColumnInfo(name = "created_at")
     val createdAt: Long? = System.currentTimeMillis(),
     @ColumnInfo(name = "updated_at")

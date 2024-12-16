@@ -7,8 +7,11 @@ import kotlinx.coroutines.flow.Flow
 interface ChatDataSource {
 
     suspend fun storeMessage(message: Message)
+    suspend fun storeConversation(conversation: Conversation)
     suspend fun getAllConversations(): Flow<List<Conversation>>
     suspend fun getAllMessagesForConversation(
         conversationId: String
     ): Flow<List<Message>>
+
+    suspend fun getConversationCount(conversationId: String): Int
 }

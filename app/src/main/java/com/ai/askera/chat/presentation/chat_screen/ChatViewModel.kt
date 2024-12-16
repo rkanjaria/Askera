@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.ai.askera.BuildConfig
 import com.ai.askera.chat.domain.ChatDataSource
-import com.ai.askera.chat.presentation.mappers.toMessage
-import com.ai.askera.chat.presentation.models.MessageUi
+import com.ai.askera.chat.domain.models.Conversation
+import com.ai.askera.chat.domain.models.Message
 import com.ai.askera.chat.presentation.models.toMessageUi
 import com.ai.askera.core.domain.util.MessageFrom
 import com.ai.askera.core.domain.util.SystemInstruction
@@ -24,10 +24,12 @@ import com.google.ai.client.generativeai.type.generationConfig
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.WhileSubscribed
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.UUID
 import kotlin.time.Duration.Companion.seconds
 
 class ChatViewModel(
@@ -37,7 +39,7 @@ class ChatViewModel(
 
     private val data = savedStateHandle.toRoute<ChatScreen>()
     private val prompt = data.prompt
-    private val conversationId = data.conversationId
+    private val conversationId = data.conversationId ?: UUID.randomUUID().toString()
 
     private val config = generationConfig { temperature = 0.7f }
 
@@ -59,12 +61,20 @@ class ChatViewModel(
     private val _state = MutableStateFlow(ChatUiState())
     val state = _state
         .onStart {
+
+            // When message is null or empty, user has landed to chat screen via history.
+            // When user clicks on prompt or types in the message message will not be empty
+
             val message = prompt
 
-            getMessagesFromConversation()
-
             if (!message.isNullOrEmpty()) {
-                sendMessage(message)
+                createConversationIfNotExists(conversationTitle = message)
+                chat = model.startChat()
+                sendMessage(message = message)
+            } else {
+                // User has came via chat history. Fetch the old conversation
+                getMessagesFromConversation(conversationId)
+                chat = model.startChat(getChatHistory())
             }
         }
         .stateIn(
@@ -125,40 +135,54 @@ class ChatViewModel(
 
     private fun addMessageToList(message: String, from: String) {
 
-        val chatMessage = MessageUi(
+        val chatMessage = Message(
             message = message,
             messageFrom = from,
             conversationId = conversationId
         )
 
-        val updatedMessageList = _state.value.messages.plus(chatMessage)
-        _state.update { it.copy(messages = updatedMessageList) }
+        val updatedMessageList = _state.value.messages.plus(chatMessage.toMessageUi())
+        _state.update {
+            it.copy(
+                messages = updatedMessageList,
+                smoothScrollToBottom = true
+            )
+        }
+
+        // Store message in db
         storeMessage(chatMessage)
     }
 
-    private fun storeMessage(messageUi: MessageUi) {
+    private suspend fun createConversationIfNotExists(conversationTitle: String) {
+
+        val doesConversationExists = chatDataSource.getConversationCount(conversationId) > 0
+        if (doesConversationExists) return
+
+        val newConversation = Conversation(
+            id = conversationId,
+            title = conversationTitle
+        )
+
+        chatDataSource.storeConversation(newConversation)
+    }
+
+    private fun storeMessage(message: Message) {
         viewModelScope.launch {
-            chatDataSource.storeMessage(messageUi.toMessage())
+            chatDataSource.storeMessage(message)
         }
     }
 
-    private fun getMessagesFromConversation() {
+    private suspend fun getMessagesFromConversation(conversationId: String) {
 
-        if (!conversationId.isNullOrEmpty()) {
+        val messages = chatDataSource.getAllMessagesForConversation(conversationId)
+            .firstOrNull()
+            .orEmpty()
 
-            viewModelScope.launch {
-                chatDataSource.getAllMessagesForConversation(conversationId)
-                    .collect { messages ->
-                        _state.update {
-                            it.copy(
-                                messages = messages.map { messageModel -> messageModel.toMessageUi() }
-                            )
-                        }
-                    }
-            }
+        _state.update {
+            it.copy(
+                messages = messages.map { messageModel -> messageModel.toMessageUi() }
+            )
         }
-
-        chat = model.startChat(getChatHistory())
     }
 
     private fun getChatHistory(): List<Content> {
@@ -169,7 +193,6 @@ class ChatViewModel(
             content(role = message.messageFrom) { text(message.message.orEmpty()) }
         }
 
-        println(content)
         return content
     }
 }

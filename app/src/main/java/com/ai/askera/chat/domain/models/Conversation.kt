@@ -6,6 +6,7 @@ import java.util.UUID
 
 data class Conversation(
     val id: String = UUID.randomUUID().toString(),
+    val title: String? = null,
     val createdAt: Long? = System.currentTimeMillis(),
     val updatedAt: Long? = System.currentTimeMillis()
 )
@@ -14,6 +15,7 @@ data class Conversation(
 fun Conversation.toConversationEntity(): ConversationEntity {
     return ConversationEntity(
         id = id,
+        title = title,
         createdAt = createdAt,
         updatedAt = updatedAt
     )

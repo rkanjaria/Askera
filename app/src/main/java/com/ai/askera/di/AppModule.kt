@@ -4,8 +4,9 @@ package com.ai.askera.di
 import androidx.room.Room
 import com.ai.askera.chat.data.local.ChatDataSourceImpl
 import com.ai.askera.chat.domain.ChatDataSource
+import com.ai.askera.chat.presentation.history_screen.ChatHistoryViewModel
 import com.ai.askera.chat.presentation.chat_screen.ChatViewModel
-import com.ai.askera.chat.presentation.home.HomeViewModel
+import com.ai.askera.chat.presentation.home_screen.HomeViewModel
 import com.ai.askera.core.data.local.AskeraDatabase
 import com.ai.askera.onboarding.presentation.splash.SplashViewModel
 import org.koin.android.ext.koin.androidApplication
@@ -26,6 +27,7 @@ val appModule = module {
     }
 
     viewModelOf(::SplashViewModel)
-    viewModelOf(::ChatViewModel)
     viewModelOf(::HomeViewModel)
+    viewModelOf(::ChatViewModel)
+    viewModelOf(::ChatHistoryViewModel)
 }

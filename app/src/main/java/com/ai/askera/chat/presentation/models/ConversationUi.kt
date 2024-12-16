@@ -9,7 +9,7 @@ data class ConversationUi(
     val id: String = UUID.randomUUID().toString(),
     val createdAt: DisplayableDate?,
     val updatedAt: DisplayableDate?,
-    val firstMessage: String
+    val title: String
 )
 
 
@@ -18,7 +18,7 @@ fun Conversation.toConversationUi(): ConversationUi {
         id = id,
         createdAt = createdAt?.toDisplayableDate(),
         updatedAt = updatedAt?.toDisplayableDate(),
-        firstMessage = ""
+        title = title.orEmpty()
     )
 }
 

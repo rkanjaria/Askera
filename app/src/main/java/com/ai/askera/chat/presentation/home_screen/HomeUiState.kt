@@ -1,4 +1,4 @@
-package com.ai.askera.chat.presentation.home
+package com.ai.askera.chat.presentation.home_screen
 
 import com.ai.askera.chat.presentation.models.ConversationUi
 import com.ai.askera.chat.presentation.models.PromptUi

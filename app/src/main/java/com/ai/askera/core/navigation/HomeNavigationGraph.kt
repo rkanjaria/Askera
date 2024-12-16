@@ -7,8 +7,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.ai.askera.chat.presentation.chat_screen.ChatScreen
 import com.ai.askera.chat.presentation.chat_screen.ChatViewModel
-import com.ai.askera.chat.presentation.home.HomeScreen
-import com.ai.askera.chat.presentation.home.HomeViewModel
+import com.ai.askera.chat.presentation.history_screen.ChatHistoryScreen
+import com.ai.askera.chat.presentation.history_screen.ChatHistoryViewModel
+import com.ai.askera.chat.presentation.home_screen.HomeScreen
+import com.ai.askera.chat.presentation.home_screen.HomeViewModel
 import com.ai.askera.core.presentation.util.fadeScreenAnimation
 import com.ai.askera.core.presentation.util.slideScreenAnimation
 import org.koin.androidx.compose.koinViewModel
@@ -38,12 +40,25 @@ fun HomeNavigationGraph(
         slideScreenAnimation<ChatScreen> {
 
             val viewModel: ChatViewModel = koinViewModel()
+            //val uiEvents = viewModel.eventFlow
             val state by viewModel.state.collectAsStateWithLifecycle()
 
             ChatScreen(
                 navController = navController,
                 state = state,
+                //uiEvents = uiEvents,
                 onAction = viewModel::onAction
+            )
+        }
+
+        slideScreenAnimation<ChatHistoryScreen> {
+
+            val viewModel: ChatHistoryViewModel = koinViewModel()
+            val state by viewModel.state.collectAsStateWithLifecycle()
+
+            ChatHistoryScreen(
+                navController = navController,
+                state = state,
             )
         }
     }
