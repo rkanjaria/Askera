@@ -6,4 +6,5 @@ data class ChatUiState(
     val isLoading: Boolean = false,
     val messages: List<MessageUi> = emptyList(),
     val smoothScrollToBottom: Boolean = false,
+    val isGenerating: Boolean = false,
 )

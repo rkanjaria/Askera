@@ -1,6 +1,9 @@
 package com.ai.askera.chat.presentation.chat_screen
 
 import android.util.Log
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
@@ -32,6 +36,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -39,12 +44,16 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.ai.askera.R
 import com.ai.askera.chat.presentation.chat_screen.components.MessageCellAi
+import com.ai.askera.chat.presentation.chat_screen.components.MessageCellGenerating
 import com.ai.askera.chat.presentation.chat_screen.components.MessageCellUser
 import com.ai.askera.chat.presentation.components.ChatBar
+import com.ai.askera.chat.presentation.models.GeneratingUi
+import com.ai.askera.chat.presentation.models.MessageUi
 import com.ai.askera.chat.presentation.models.toMessageUi
 import com.ai.askera.core.domain.util.MessageFrom
 import com.ai.askera.core.domain.util.dummyConversation
@@ -63,11 +72,10 @@ fun ChatScreen(
     val listState = rememberLazyListState()
     val messages = state.messages
     val shouldPerformSmoothScroll = state.smoothScrollToBottom
+    val isGenerating = state.isGenerating
 
     LaunchedEffect(messages.size) {
         if (messages.isNotEmpty()) {
-
-            Log.d("SCROLL", "SMOOTH_SCROLL - $shouldPerformSmoothScroll")
 
             if (shouldPerformSmoothScroll) {
                 listState.animateScrollToItem(messages.lastIndex)
@@ -109,11 +117,20 @@ fun ChatScreen(
             items(messages) { message ->
 
                 val isMessageFromUser = message.messageFrom == MessageFrom.USER
-
                 if (isMessageFromUser) {
                     MessageCellUser(message = message)
                 } else {
                     MessageCellAi(message = message)
+                }
+            }
+
+            if (isGenerating) {
+                item {
+                    MessageCellGenerating(
+                        modifier = Modifier
+                            .size(MaterialTheme.size.dp70)
+                            .offset(x = MaterialTheme.size.dp8.times(-1))
+                    )
                 }
             }
         }
@@ -142,6 +159,7 @@ fun ChatScreen(
                     bottom = MaterialTheme.size.extraSmall
                 )
                 .align(Alignment.BottomCenter),
+
             onSendButtonClicked = { userMessage ->
                 onAction.invoke(
                     ChatActions.SendMessage(
@@ -212,7 +230,8 @@ private fun ChatScreenPreview() {
         ChatScreen(
             navController = rememberNavController(),
             state = ChatUiState(
-                messages = dummyConversation.map { it.toMessageUi() }
+                messages = dummyConversation.take(2).map { it.toMessageUi() },
+                isGenerating = true
             ),
             onAction = {}
         )

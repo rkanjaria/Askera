@@ -12,7 +12,7 @@ data class MessageUi(
     val message: String? = null,
     val createdAt: DisplayableDate? = null,
     val updatedAt: DisplayableDate? = null
-)
+): ChatCellUi
 
 fun Message.toMessageUi(): MessageUi {
     return MessageUi(

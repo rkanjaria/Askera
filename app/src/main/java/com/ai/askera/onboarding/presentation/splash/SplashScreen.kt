@@ -28,7 +28,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.ai.askera.R
 import com.ai.askera.core.navigation.Graph
-import com.ai.askera.core.navigation.WalkthroughScreen
 import com.ai.askera.core.presentation.util.ObserveAsEvents
 import com.ai.askera.ui.theme.size
 import kotlinx.coroutines.delay
@@ -73,12 +72,6 @@ fun SplashScreen(
 
             SplashUiEvents.EndLogoAnimation -> {
                 logoVisibility = false
-            }
-
-            SplashUiEvents.NavigateToWelcomeScreen -> {
-                delayAnimation()
-                navController.popBackStack()
-                navController.navigate(WalkthroughScreen)
             }
         }
     }

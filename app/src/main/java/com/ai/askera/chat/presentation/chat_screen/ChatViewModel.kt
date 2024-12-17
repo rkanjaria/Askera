@@ -38,7 +38,6 @@ class ChatViewModel(
 ) : ViewModel() {
 
     private val data = savedStateHandle.toRoute<ChatScreen>()
-    private val prompt = data.prompt
     private val conversationId = data.conversationId ?: UUID.randomUUID().toString()
 
     private val config = generationConfig { temperature = 0.7f }
@@ -65,7 +64,7 @@ class ChatViewModel(
             // When message is null or empty, user has landed to chat screen via history.
             // When user clicks on prompt or types in the message message will not be empty
 
-            val message = prompt
+            val message = data.prompt
 
             if (!message.isNullOrEmpty()) {
                 createConversationIfNotExists(conversationTitle = message)
@@ -100,8 +99,10 @@ class ChatViewModel(
 
                 addMessageToList(
                     message = message,
-                    from = MessageFrom.USER
+                    from = MessageFrom.USER,
                 )
+
+                showGenerating(isGenerating = true)
 
                 try {
 
@@ -128,9 +129,15 @@ class ChatViewModel(
                         message = errorResponses.random(),
                         from = MessageFrom.MODEL
                     )
+                } finally {
+                    showGenerating(isGenerating = false)
                 }
             }
         }
+    }
+
+    private fun showGenerating(isGenerating: Boolean) {
+        _state.update { it.copy(isGenerating = isGenerating) }
     }
 
     private fun addMessageToList(message: String, from: String) {

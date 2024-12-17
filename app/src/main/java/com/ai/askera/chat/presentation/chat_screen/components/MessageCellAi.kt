@@ -27,8 +27,6 @@ fun MessageCellAi(
     message: MessageUi
 ) {
 
-    //val animatedState = rememberAnimatedTextState()
-
     val messageShape = RoundedCornerShape(
         topStart = MaterialTheme.size.minor,
         topEnd = MaterialTheme.size.megaLarge,

@@ -7,11 +7,6 @@ import kotlinx.serialization.Serializable
 data object SplashScreen
 
 @Serializable
-data class WalkthroughScreen(
-    val name: String? = null
-)
-
-@Serializable
 data object HomeScreen
 
 @Serializable

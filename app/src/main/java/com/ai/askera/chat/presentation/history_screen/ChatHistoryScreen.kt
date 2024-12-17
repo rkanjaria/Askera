@@ -114,6 +114,9 @@ fun ChatHistoryScreen(
                                 .fillMaxWidth(),
                             conversation = conversationHistory,
                             onChatHistoryClicked = { conversation ->
+
+                                navController.popBackStack()
+
                                 val conversationId = conversation.id
                                 navController.navigate(
                                     ChatScreen(

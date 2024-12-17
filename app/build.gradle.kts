@@ -36,9 +36,9 @@ android {
         val baseUrl = "https://staging.getpi.in/"
 
         debug {
-            isMinifyEnabled = false
-            isDebuggable = true
-            isShrinkResources = false
+            isMinifyEnabled = true
+            isDebuggable = false
+            isShrinkResources = true
 
             buildConfigField(booleanType, "DEBUG", isDebuggable.toString())
             buildConfigField(stringType, "BASE_URL", "\"$baseUrl\"")
@@ -68,7 +68,6 @@ android {
                 name = "API_KEY",
                 value = "\"${properties.getProperty("API_KEY")}\""
             )
-
 
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -107,11 +106,11 @@ dependencies {
     // Koin
     implementation(libs.bundles.koin)
 
-    // Ktor
-    implementation(libs.bundles.ktor)
-
     // Navigation
     implementation(libs.androidx.navigation.compose)
+
+    // Serialization
+    implementation(libs.kotlinx.serialization.json)
 
     // Room
     implementation(libs.androidx.room.runtime)
@@ -126,6 +125,9 @@ dependencies {
 
     // Markdown
     implementation(libs.compose.markdown)
+
+    //Lottie
+    implementation(libs.lottie.compose)
 
     testImplementation(libs.junit)
 

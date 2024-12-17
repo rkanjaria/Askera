@@ -10,8 +10,8 @@ lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
 composeBom = "2024.11.00"
 desugar-jdk-libs = "2.1.3"
-ktor = "2.3.12"
 koin = "3.5.6"
+lottieCompose = "6.3.0"
 markdown = "0.5.0"
 material3-adaptive = "1.0.0"
 compose-material-icons-extended = "1.7.5"
@@ -19,6 +19,7 @@ navigation = "2.8.4"
 room = "2.6.1"
 ksp = "2.0.21-1.0.27"
 splash = "1.0.1"
+kotlinx-serialization-json = "1.6.3"
 
 
 [libraries]
@@ -42,11 +43,6 @@ desugar-jdk-libs = { module = "com.android.tools:desugar_jdk_libs", version.ref 
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
 koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
-ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
-ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
-ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
-ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
-ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeKtx" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
 androidx-compose-material3-adaptive-navigation = { module = "androidx.compose.material3.adaptive:adaptive-navigation", version.ref = "material3-adaptive" }
@@ -63,6 +59,9 @@ androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "
 
 # Splash
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splash" }
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
+
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -91,11 +90,4 @@ koin = [
     "koin-core",
     "koin-android",
     "koin-androidx-compose"
-]
-ktor = [
-    "ktor-client-cio",
-    "ktor-client-content-negotiation",
-    "ktor-client-core",
-    "ktor-client-logging",
-    "ktor-serialization-kotlinx-json"
 ]

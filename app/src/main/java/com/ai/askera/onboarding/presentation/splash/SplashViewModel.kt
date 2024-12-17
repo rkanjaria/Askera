@@ -40,10 +40,4 @@ class SplashViewModel() : ViewModel() {
         delay(150)
         _eventFlow.send(SplashUiEvents.NavigateToHomeScreen)
     }
-
-    private suspend fun navigateToWelcomeScreen() {
-        // delay after the logo animation completes
-        delay(150)
-        _eventFlow.send(SplashUiEvents.NavigateToWelcomeScreen)
-    }
 }
