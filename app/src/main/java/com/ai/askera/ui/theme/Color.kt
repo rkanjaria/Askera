@@ -2,26 +2,6 @@ package com.ai.askera.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val translucentBlack = Color(0x4D000000)
-
-// Old
-/*object DarkTheme {
-    val background = Color(0xFF1C202A)
-    val backgroundDark = Color(0xFF161921)
-    val grey = Color(0xFF272C39)
-    val lightGrey = Color(0xFF313849)
-    val title = Color(0xFFFFFFFF)
-    val subtitle = Color(0xFF82899C)
-    val primary = Color(0xFF7269E3)
-    val primaryDark = Color(0xFF5148C9)
-
-    val cardColorPurple = Color(0xFFC9C6FF)
-    val cardColorPink = Color(0xFFFFD0F8)
-    val cardColorYellow = Color(0xFFFFDAAB) //ffd18d
-    val cardColorGreen = Color(0xFFE5FFA5)
-    val cardColorDarkGreen = Color(0xFFBEFFE2)
-}*/
-
 object DarkTheme {
     val background = Color(0xFF0A0A0A)
     val backgroundDark = Color(0xFF0A0A0A)
